@@ -10,6 +10,15 @@ sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 load_dotenv()
 os.environ["LITELLM_LOCAL_MODEL_COST_MAP"] = "True"
 
+# Auto-bind Streamlit Secrets to environment variables if available
+try:
+    if "GEMINI_API_KEY" in st.secrets and st.secrets["GEMINI_API_KEY"]:
+        os.environ["GEMINI_API_KEY"] = st.secrets["GEMINI_API_KEY"]
+    if "TAVILY_API_KEY" in st.secrets and st.secrets["TAVILY_API_KEY"]:
+        os.environ["TAVILY_API_KEY"] = st.secrets["TAVILY_API_KEY"]
+except Exception:
+    pass
+
 from graph.graph import graph
 from graph.state import create_initial_state
 from export.docx_exporter import export_report
@@ -329,8 +338,15 @@ with st.sidebar:
     st.divider()
 
     st.markdown('<div class="sidebar-section-title">API CONFIGURATION</div>', unsafe_allow_html=True)
-    gemini_key = st.text_input("GEMINI_API_KEY", value=os.getenv("GEMINI_API_KEY", ""), type="password")
-    tavily_key = st.text_input("TAVILY_API_KEY", value=os.getenv("TAVILY_API_KEY", ""), type="password")
+    cur_gemini = os.getenv("GEMINI_API_KEY", "")
+    if cur_gemini == "your_gemini_api_key_here":
+        cur_gemini = ""
+    cur_tavily = os.getenv("TAVILY_API_KEY", "")
+    if cur_tavily == "your_tavily_api_key_here":
+        cur_tavily = ""
+
+    gemini_key = st.text_input("GEMINI_API_KEY", value=cur_gemini, type="password")
+    tavily_key = st.text_input("TAVILY_API_KEY", value=cur_tavily, type="password")
     if gemini_key:
         os.environ["GEMINI_API_KEY"] = gemini_key
     if tavily_key:
@@ -389,6 +405,11 @@ run_button = st.button("Run research pipeline →")
 if run_button:
     if not query.strip():
         st.warning("Please enter a research query to continue.")
+        st.stop()
+
+    active_gemini_key = os.getenv("GEMINI_API_KEY", "")
+    if not active_gemini_key or active_gemini_key == "your_gemini_api_key_here":
+        st.error("🔑 Missing GEMINI_API_KEY! Please enter your Gemini API Key in the left sidebar or in Streamlit Cloud Secrets.")
         st.stop()
 
     with st.spinner("Running pipeline..."):
