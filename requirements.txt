@@ -1,0 +1,44 @@
+# Core LLM & Agent Framework
+
+langgraph
+langchain-core
+litellm
+
+# Vector Database
+
+chromadb
+
+# Embeddings & Reranking
+
+sentence-transformers
+torch
+
+# Web Research
+
+tavily-python
+
+# Document Processing
+
+docling
+
+# Frontend
+
+streamlit
+
+# Data Validation
+
+pydantic
+
+# Environment Variables
+
+python-dotenv
+
+# Report Generation
+
+python-docx
+
+# Utilities
+
+numpy
+pandas
+tqdm

@@ -1,0 +1,112 @@
+# =========================
+# Python
+# =========================
+__pycache__/
+*.py[cod]
+*$py.class
+
+# =========================
+# Virtual Environment
+# =========================
+.venv/
+venv/
+env/
+
+# =========================
+# Environment Variables
+# =========================
+.env
+
+# =========================
+# Streamlit
+# =========================
+.streamlit/secrets.toml
+
+# =========================
+# Jupyter
+# =========================
+.ipynb_checkpoints/
+
+# =========================
+# IDE
+# =========================
+.vscode/
+.idea/
+
+# =========================
+# OS Files
+# =========================
+.DS_Store
+Thumbs.db
+
+# =========================
+# ChromaDB
+# =========================
+chroma/
+chroma_db/
+memory_db/
+vector_db/
+
+# =========================
+# Model Files
+# =========================
+*.bin
+*.pt
+*.pth
+*.onnx
+*.safetensors
+
+# =========================
+# Logs
+# =========================
+*.log
+
+# =========================
+# Temporary Files
+# =========================
+temp/
+tmp/
+*.tmp
+
+# =========================
+# Test Outputs
+# =========================
+test_outputs/
+outputs/
+
+# =========================
+# Build Artifacts
+# =========================
+build/
+dist/
+*.egg-info/
+
+# =========================
+# Local Research Data
+# =========================
+data/
+knowledge_base/
+embeddings/
+
+# =========================
+# Memory Collections
+# =========================
+memory_store/
+persistent_memory/
+
+# =========================
+# Coverage
+# =========================
+.coverage
+htmlcov/
+.pytest_cache/
+
+# Local test scripts
+memory_test.py
+test.py
+
+# Experimental UI versions
+streamlit_app_V1.py
+
+# Personal notes
+Initial Idea.md
