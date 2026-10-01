@@ -6,9 +6,10 @@ from prompts.analyst import ANALYST_PROMPT
 
 from agents.schemas import ResearchPlan
 
-from config.rag_scope import (
-    RAG_CORPUS_SCOPE
-)
+try:
+    from rag.rag_scope import RAG_CORPUS_SCOPE
+except Exception:
+    from config.rag_scope import RAG_CORPUS_SCOPE
 
 
 def build_analyst_context(
