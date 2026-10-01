@@ -413,9 +413,17 @@ if run_button:
         st.stop()
 
     with st.spinner("Running pipeline..."):
-        initial_state = create_initial_state(query=query)
-        result_state = graph.invoke(initial_state)
-        st.session_state["research_result"] = result_state
+        try:
+            initial_state = create_initial_state(query=query)
+            result_state = graph.invoke(initial_state)
+            st.session_state["research_result"] = result_state
+        except Exception as e:
+            err_str = str(e)
+            if "AuthenticationError" in err_str or "401" in err_str or "API_KEY" in err_str or "403" in err_str:
+                st.error("🔑 **Authentication Failed**: The `GEMINI_API_KEY` is missing or invalid. Please paste your valid Gemini API key into the left sidebar **API CONFIGURATION** box or add it to Streamlit Secrets (`Settings → Secrets`).")
+            else:
+                st.error(f"Pipeline Execution Error: {err_str}")
+            st.stop()
 
 
 # --------------------------------------------------
